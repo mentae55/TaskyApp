@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../constants/task.dart';
-import '../service/task_sql_service.dart';
-import '../core/custom_task.dart';
-import 'main_screen.dart';
+import 'package:tasky/service/task_hive_service.dart';
+import '../core/task_class/task_for_hive.dart';
+import '../core/widgets/custom_task.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ToDoScreen extends StatefulWidget {
   const ToDoScreen({super.key});
@@ -15,7 +15,7 @@ class ToDoScreen extends StatefulWidget {
 class _ToDoScreenState extends State<ToDoScreen> {
   List<Task> uncompletedTasks = [];
   bool isLoading = false;
-  final TaskSqlService _dbService = TaskSqlService();
+  final TaskHiveService _dbService = TaskHiveService();
 
   @override
   void initState() {
@@ -48,23 +48,10 @@ class _ToDoScreenState extends State<ToDoScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: isDark ? Colors.white : Colors.black,
-          ),
-          onPressed: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => MainScreen()),
-              (route) => false,
-            );
-          },
-        ),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
         title: Text("To Do Tasks", style: theme.textTheme.titleMedium),
       ),
       body: SafeArea(
@@ -77,10 +64,10 @@ class _ToDoScreenState extends State<ToDoScreen> {
                   children: [
                     Icon(
                       Icons.task_alt,
-                      size: 80,
+                      size: 80.r,
                       color: Theme.of(context).primaryColor,
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
                     Text(
                       "Great job!",
                       style: theme.textTheme.headlineSmall?.copyWith(
@@ -88,7 +75,7 @@ class _ToDoScreenState extends State<ToDoScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8.h),
                     Text(
                       "You've completed all your tasks!",
                       style: theme.textTheme.bodyLarge?.copyWith(
@@ -100,7 +87,7 @@ class _ToDoScreenState extends State<ToDoScreen> {
               )
             : Column(
                 children: [
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                   Expanded(
                     child: ListView.separated(
                       itemCount: uncompletedTasks.length,
@@ -112,7 +99,7 @@ class _ToDoScreenState extends State<ToDoScreen> {
                         );
                       },
                       separatorBuilder: (context, index) =>
-                          const SizedBox(height: 12),
+                          SizedBox(height: 12.h),
                     ),
                   ),
                 ],

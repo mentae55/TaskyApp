@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasky/screens/main_screen.dart';
 import 'package:tasky/screens/welcome_screen.dart';
-import '../controllers/provider/theme_manger_provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../core/controllers/provider/theme_manger_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -41,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (username != null && username.isNotEmpty) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => MainScreen()),
+        MaterialPageRoute(builder: (_) => const MainScreen()),
       );
     } else {
       Navigator.pushReplacement(
@@ -68,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen> {
               color: theme.scaffoldBackgroundColor,
               gradient: RadialGradient(
                 colors: [theme.colorScheme.primary, Colors.transparent],
-                radius: 1,
+                radius: 1.r,
                 center: Alignment.topLeft,
               ),
             ),
@@ -78,7 +79,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   decoration: BoxDecoration(
                     gradient: RadialGradient(
                       colors: [theme.colorScheme.primary, Colors.transparent],
-                      radius: 1,
+                      radius: 1.r,
                       center: Alignment.bottomRight,
                     ),
                   ),
@@ -102,8 +103,8 @@ class SplashLogo extends StatelessWidget {
 
     return SvgPicture.asset(
       "assets/images/Vector.svg",
-      width: 87,
-      height: 87,
+      width: 87.w,
+      height: 87.h,
       colorFilter: ColorFilter.mode(theme.colorScheme.primary, BlendMode.srcIn),
     );
   }

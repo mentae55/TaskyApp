@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tasky/screens/to_do_screen.dart';
-
-import '../core/custom_bottom_navigation_bar.dart';
+import '../core/widgets/custom_bottom_navigation_bar.dart';
 import 'home_screen.dart';
-
 import 'completed_screen.dart';
 import 'profile_screen.dart';
 
@@ -15,28 +13,29 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 0;
-  final List<Widget> _screens = const [
+  int currentIndex = 0;
+
+  final List<Widget> screens = [
     HomeScreen(),
     ToDoScreen(),
     CompletedScreen(),
     ProfileScreen(),
   ];
 
-  bool get isDark => Theme.of(context).brightness == Brightness.dark;
-
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     return Scaffold(
-      body: _screens[_currentIndex],
+      body: screens[currentIndex],
       bottomNavigationBar: CustomBottomNavigationBar(
-        currentIndex: _currentIndex,
+        currentIndex: currentIndex,
         onTap: (index) {
           setState(() {
-            _currentIndex = index;
+            currentIndex = index;
           });
         },
-        theme: Theme.of(context),
+        theme: theme,
         isDark: isDark,
       ),
     );

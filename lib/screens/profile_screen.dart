@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tasky/controllers/provider/theme_manger_provider.dart';
-import 'package:tasky/screens/user_detalis.dart';
+import 'package:tasky/screens/user_details.dart';
 import 'package:tasky/screens/welcome_screen.dart';
-import '../service/task_sql_service.dart';
+import 'package:tasky/service/task_hive_service.dart';
+import '../core/controllers/provider/theme_manger_provider.dart';
 import '../service/username_shared_preferences_service.dart';
-import 'main_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -42,76 +42,65 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        bottomOpacity: 64,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: isDark ? Colors.white : Colors.black,
-          ),
-          onPressed: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => MainScreen()),
-              (route) => false,
-            );
-          },
-        ),
+        bottomOpacity: 64.h,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
         title: Text("My Profile", style: theme.textTheme.titleMedium),
       ),
       body: SafeArea(
         child: Column(
           children: [
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Stack(
                     children: [
-                      const CircleAvatar(
-                        radius: 85,
+                      CircleAvatar(
+                        radius: 85.r,
                         backgroundImage: AssetImage('assets/images/me.png'),
                       ),
                       Positioned(
-                        bottom: 0,
-                        right: 0,
+                        bottom: 0.h,
+                        right: 0.h,
                         child: Container(
-                          width: 30,
-                          height: 30,
+                          width: 30.w,
+                          height: 30.h,
                           decoration: BoxDecoration(
                             color: Theme.of(context).colorScheme.surface,
-                            borderRadius: BorderRadius.circular(50),
+                            borderRadius: BorderRadius.circular(50.r),
                           ),
                           child: SvgPicture.asset(
                             'assets/images/camera.svg',
-                            color: isDark ? Colors.white : Colors.black,
-                            width: 18,
-                            height: 18,
+                            color: isDark ? Colors.grey[400] : Colors.black,
+                            width: 18.w,
+                            height: 18.h,
                           ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   Text(
                     username,
 
                     style: Theme.of(
                       context,
-                    ).textTheme.bodyLarge?.copyWith(fontSize: 20),
+                    ).textTheme.bodyLarge?.copyWith(fontSize: 20.sp),
                   ),
-                  const SizedBox(height: 5),
+                  SizedBox(height: 5.h),
                   Text(
                     bio,
                     textAlign: TextAlign.center,
                     style: Theme.of(
                       context,
-                    ).textTheme.bodyLarge?.copyWith(fontSize: 14),
+                    ).textTheme.bodyLarge?.copyWith(fontSize: 14.sp),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h),
 
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,14 +108,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Text(
                   "Profile Info",
                   style: theme.textTheme.displaySmall?.copyWith(
-                    fontSize: 20,
+                    fontSize: 20.sp,
                     color: theme.colorScheme.onSurface,
                   ),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
 
                 SizedBox(
-                  width: double.infinity,
+                  width: double.infinity.w,
                   child: Column(
                     children: [
                       ListTile(
@@ -148,14 +137,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         title: Text(
                           "User Details",
                           style: theme.textTheme.bodyLarge?.copyWith(
-                            fontSize: 16,
+                            fontSize: 16.sp,
                           ),
                         ),
                         trailing: const Icon(Icons.arrow_forward_rounded),
                       ),
                       Divider(
-                        color: Colors.grey[700],
-                        thickness: 1,
+                        color: Colors.grey[300],
+                        thickness: 0.6,
                         indent: 16,
                         endIndent: 16,
                       ),
@@ -164,7 +153,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
 
                 SizedBox(
-                  width: double.infinity,
+                  width: double.infinity.w,
                   child: Column(
                     children: [
                       ListTile(
@@ -175,7 +164,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         title: Text(
                           "Dark Mode",
                           style: theme.textTheme.bodyLarge?.copyWith(
-                            fontSize: 16,
+                            fontSize: 16.sp,
                           ),
                         ),
                         trailing: Switch(
@@ -201,7 +190,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                       Divider(
-                        color: Colors.grey[700],
+                        color: Colors.grey[300],
                         thickness: 1,
                         indent: 16,
                         endIndent: 16,
@@ -216,16 +205,55 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       ListTile(
                         onTap: () async {
-                          final prefs = await SharedPreferences.getInstance();
-                          await prefs.clear();
-                          await TaskSqlService().resetDatabase();
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => WelcomeScreen(),
-                            ),
-                            (route) => false,
+                          final confirm = await showDialog<bool>(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text(
+                                  "Confirm Logout",
+                                  style: TextStyle(
+                                    fontSize: 18.sp,
+                                    color: isDark
+                                        ? Colors.grey[100]
+                                        : Colors.black,
+                                  ),
+                                ),
+                                content: Text(
+                                  "Are you sure you want to log out?",
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(false),
+                                    // Cancel
+                                    child: Text("Cancel"),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(true),
+                                    // Confirm
+                                    child: Text(
+                                      "Logout",
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
                           );
+
+                          if (confirm == true) {
+                            final prefs = await SharedPreferences.getInstance();
+                            await prefs.clear();
+                            await TaskHiveService().resetDatabase();
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => WelcomeScreen(),
+                              ),
+                              (route) => false,
+                            );
+                          }
                         },
                         leading: SvgPicture.asset(
                           'assets/images/logout.svg',
@@ -234,14 +262,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         title: Text(
                           "Log Out",
                           style: theme.textTheme.bodyLarge?.copyWith(
-                            fontSize: 16,
+                            fontSize: 16.sp,
                           ),
                         ),
                         trailing: const Icon(Icons.arrow_forward_rounded),
                       ),
+
                       Divider(
-                        color: Colors.grey[700],
-                        thickness: 1,
+                        color: Colors.grey[300],
+                        thickness: 0.6,
                         indent: 16,
                         endIndent: 16,
                       ),

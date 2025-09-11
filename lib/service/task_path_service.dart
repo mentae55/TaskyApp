@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../constants/task.dart';
+import '../core/task_class/task_for_sql.dart';
 
 class TaskPathService {
   static const String tasksFileName = 'tasks.json';

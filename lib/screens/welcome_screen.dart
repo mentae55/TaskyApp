@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tasky/screens/main_screen.dart';
 import '../app_themes/app_themes.dart';
-import '../core/custom_text_form_field.dart';
+import '../core/widgets/custom_text_form_field.dart';
 import '../service/username_shared_preferences_service.dart';
-import 'home_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WelcomeScreen extends StatelessWidget {
   WelcomeScreen({super.key});
@@ -20,19 +21,19 @@ class WelcomeScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16.h),
           child: Column(
             children: [
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(
                     "assets/images/Vector.svg",
-                    height: 42,
-                    width: 42,
+                    height: 42.h,
+                    width: 42.w,
                   ),
-                  const SizedBox(width: 16),
+                  SizedBox(width: 16.w),
                   Text(
                     "Tasky",
                     style: theme.textTheme.titleMedium?.copyWith(
@@ -42,7 +43,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 108),
+              SizedBox(height: 108.h),
               Expanded(
                 child: Column(
                   children: [
@@ -53,33 +54,33 @@ class WelcomeScreen extends StatelessWidget {
                           "Welcome To Tasky",
                           style: theme.textTheme.titleMedium?.copyWith(
                             color: colors.text,
-                            fontSize: 24,
+                            fontSize: 24.sp,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const SizedBox(width: 8),
+                        SizedBox(width: 8.w),
                         SvgPicture.asset(
                           "assets/images/wave.svg",
-                          height: 28,
-                          width: 28,
+                          height: 28.h,
+                          width: 28.w,
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8.h),
                     Text(
                       "Your productivity journey starts here.",
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: colors.textSecondary,
-                        fontSize: 16,
+                        fontSize: 16.sp,
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24.h),
                     SvgPicture.asset(
                       "assets/images/pana.svg",
                       height: 199,
                       width: 215,
                     ),
-                    const SizedBox(height: 28),
+                    SizedBox(height: 28.h),
                     CustomTextField(
                       controller: _usernameController,
                       key: nameFieldKey,
@@ -92,16 +93,16 @@ class WelcomeScreen extends StatelessWidget {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24.h),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: colors.primary,
                           foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          padding: EdgeInsets.symmetric(vertical: 16.h),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
+                            borderRadius: BorderRadius.circular(100.r),
                           ),
                         ),
                         onPressed: () async {
@@ -112,7 +113,7 @@ class WelcomeScreen extends StatelessWidget {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => HomeScreen(),
+                                builder: (context) => MainScreen(),
                               ),
                             );
                           }
@@ -121,7 +122,7 @@ class WelcomeScreen extends StatelessWidget {
                           "Let's Get Started",
                           style: theme.textTheme.displaySmall?.copyWith(
                             fontFamily: "Poppins",
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
                           ),
                         ),

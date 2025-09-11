@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../constants/task.dart';
-import '../service/task_sql_service.dart';
-import '../core/custom_task.dart';
-import 'main_screen.dart';
+import '../core/task_class/task_for_hive.dart';
+import '../core/widgets/custom_task.dart';
+import '../service/task_hive_service.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CompletedScreen extends StatefulWidget {
   const CompletedScreen({super.key});
@@ -15,7 +15,7 @@ class CompletedScreen extends StatefulWidget {
 class _CompletedScreenState extends State<CompletedScreen> {
   List<Task> completedTasks = [];
   bool isLoading = false;
-  final TaskSqlService _dbService = TaskSqlService();
+  final TaskHiveService _dbService = TaskHiveService();
 
   @override
   void initState() {
@@ -52,19 +52,8 @@ class _CompletedScreenState extends State<CompletedScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: isDark ? Colors.white : Colors.black,
-          ),
-          onPressed: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => MainScreen()),
-              (route) => false,
-            );
-          },
-        ),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
         title: Text("Completed Tasks", style: theme.textTheme.titleMedium),
       ),
       body: SafeArea(
@@ -77,10 +66,10 @@ class _CompletedScreenState extends State<CompletedScreen> {
                   children: [
                     Icon(
                       Icons.check_circle_outline,
-                      size: 80,
+                      size: 80.r,
                       color: Theme.of(context).primaryColor,
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
                     Text(
                       "No completed tasks yet",
                       style: theme.textTheme.headlineSmall?.copyWith(
@@ -88,7 +77,7 @@ class _CompletedScreenState extends State<CompletedScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8.h),
                     Text(
                       "Finish some tasks to see them here!",
                       style: theme.textTheme.bodyLarge?.copyWith(
@@ -100,7 +89,7 @@ class _CompletedScreenState extends State<CompletedScreen> {
               )
             : Column(
                 children: [
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                   Expanded(
                     child: ListView.separated(
                       itemCount: completedTasks.length,
@@ -109,10 +98,17 @@ class _CompletedScreenState extends State<CompletedScreen> {
                         return CustomTask(
                           task: task,
                           onToggle: (_) => _toggleTask(task),
+                          onDelete: (deletedTask) {
+                            setState(() {
+                              completedTasks.removeWhere(
+                                (task) => task.id == deletedTask.id,
+                              );
+                            });
+                          },
                         );
                       },
                       separatorBuilder: (context, index) =>
-                          const SizedBox(height: 12),
+                          SizedBox(height: 12.h),
                     ),
                   ),
                 ],

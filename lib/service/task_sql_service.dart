@@ -1,7 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-
-import '../constants/task.dart';
+import '../core/task_class/task_for_sql.dart';
 
 class TaskSqlService {
   static Database? _db;

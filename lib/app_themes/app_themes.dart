@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppThemes {
   static final darkColors = _AppColors(
@@ -37,7 +38,7 @@ class AppThemes {
         iconTheme: IconThemeData(color: darkColors.icon),
         titleTextStyle: TextStyle(
           fontFamily: 'Plus Jakarta Sans',
-          fontSize: 20,
+          fontSize: 20.sp,
           fontWeight: FontWeight.w600,
           color: darkColors.text,
         ),
@@ -46,24 +47,24 @@ class AppThemes {
         titleMedium: TextStyle(
           fontFamily: 'Plus Jakarta Sans',
           color: darkColors.text,
-          fontSize: 24,
+          fontSize: 24.sp,
           fontWeight: FontWeight.normal,
         ),
         bodyLarge: TextStyle(
           fontFamily: 'Plus Jakarta Sans',
-          fontSize: 16,
+          fontSize: 16.sp,
           fontWeight: FontWeight.w400,
           color: darkColors.text,
         ),
         bodyMedium: TextStyle(
           fontFamily: 'Plus Jakarta Sans',
-          fontSize: 14,
+          fontSize: 14.sp,
           fontWeight: FontWeight.w400,
           color: darkColors.textSecondary,
         ),
         displaySmall: TextStyle(
           fontFamily: 'Plus Jakarta Sans',
-          fontSize: 20,
+          fontSize: 20.sp,
           fontWeight: FontWeight.w400,
           color: darkColors.textSecondary,
         ),
@@ -98,7 +99,7 @@ class AppThemes {
         foregroundColor: lightColors.text,
         titleTextStyle: TextStyle(
           fontFamily: 'Plus Jakarta Sans',
-          fontSize: 20,
+          fontSize: 20.sp,
           fontWeight: FontWeight.w600,
           color: lightColors.text,
         ),
@@ -107,18 +108,18 @@ class AppThemes {
         titleMedium: TextStyle(
           fontFamily: 'Plus Jakarta Sans',
           color: lightColors.text,
-          fontSize: 24,
+          fontSize: 24.sp,
           fontWeight: FontWeight.normal,
         ),
         bodyLarge: TextStyle(
           fontFamily: 'Plus Jakarta Sans',
-          fontSize: 16,
+          fontSize: 16.sp,
           fontWeight: FontWeight.w400,
           color: lightColors.text,
         ),
         bodyMedium: TextStyle(
           fontFamily: 'Plus Jakarta Sans',
-          fontSize: 14,
+          fontSize: 14.sp,
           fontWeight: FontWeight.w400,
           color: lightColors.textSecondary,
         ),
