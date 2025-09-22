@@ -1,131 +1,102 @@
-#TaskyApp
+# 📱 TaskyApp
 
-TaskyApp is a modern, intuitive, and feature-rich task management mobile application built with React Native. It is designed to help individuals and teams organize their daily tasks, set priorities, and track their productivity seamlessly.
+> **TaskyApp** is a modern task management app (To-Do App) designed to help you stay organized and boost your productivity.
 
-Table of Contents
-Overview
+---
 
-Key Features
+## 📸 Screenshots  
 
-Technology Stack
+Add your screenshots inside the `assets/screenshots/` folder, then reference them here:
 
-Installation and Setup
+- Screenshots 
+  ![Home Screen](./assets/screenshots/home.png)  
 
-Usage Guide
+---
 
-Project Structure
+## 📋 Table of Contents
 
-Contributing
+- [Features](#-features)  
+- [Tech Stack](#-tech-stack)  
+- [Installation](#-installation)  
+- [Usage](#-usage)  
+- [Project Structure](#-project-structure)  
+- [Contributing](#-contributing)  
+- [License](#-license)  
+- [Support](#-support)  
 
-License
+---
 
-Support
+## 🔑 Features
 
-Overview
-In today's fast-paced world, staying organized is crucial. TaskyApp provides a clean and user-friendly interface to manage your to-do lists effectively. Whether you're managing personal errands or tracking work-related projects, TaskyApp offers the flexibility and power you need, all from your mobile device.
+- 📝 Create, edit, and delete tasks  
+- ⏰ Add due dates and reminders  
+- 📊 Set task priority (Low / Medium / High)  
+- 📂 Categorize tasks into projects or groups  
+- 💾 Persistent local storage with **AsyncStorage**  
+- 🎨 Clean, responsive UI for both Android and iOS  
 
-Key Features
-Task Management: The core functionality allows users to create, read, update, and delete (CRUD) tasks effortlessly.
+---
 
-Due Dates & Reminders: Set deadlines for your tasks to stay on track. The app can provide reminders for upcoming tasks (implementation note: background tasks for push notifications would require additional native setup).
+## 🛠 Tech Stack
 
-Priority Levels: Categorize your tasks with priority levels (e.g., Low, Medium, High) to focus on what matters most.
+- **React Native**  
+- **Redux Toolkit** for state management  
+- **React Navigation** for screen navigation  
+- **AsyncStorage** for local storage  
+- **Vector Icons** for icons  
 
-Task Categorization: Organize tasks into custom categories or projects for better structure and overview.
+---
 
-Persistent Storage: All your tasks and settings are saved locally on your device using AsyncStorage, ensuring your data is always available, even offline.
+## 🚀 Installation
 
-User Interface: Built with a focus on user experience, featuring a responsive design that works smoothly on both iOS and Android platforms. Supports both Light and Dark themes.
+### Prerequisites
+- Node.js ≥ 14  
+- npm or yarn  
+- Android Studio (or Xcode for iOS)  
+- React Native CLI  
 
-Technology Stack
-TaskyApp is built using a modern React Native development stack:
-
-Framework: React Native
-
-State Management: Redux Toolkit (RTK) - for efficient and predictable state management across the application.
-
-Navigation: React Navigation - provides a seamless and native-like navigation experience between screens (e.g., Stack Navigator).
-
-Storage: AsyncStorage - for persisting user data locally on the device.
-
-Icons: React Native Vector Icons - provides a wide set of customizable icons for a polished UI.
-
-Installation and Setup
-Follow these steps to set up the development environment and run the project locally.
-
-Prerequisites
-Node.js (version 14 or newer)
-
-npm or yarn package manager
-
-Java Development Kit (JDK) for Android development
-
-Android Studio (for Android emulator and SDK) or Xcode (for iOS simulator)
-
-React Native CLI
-
-Steps
-Clone the repository:
-
-bash
+### Steps
+```bash
 git clone https://github.com/mentae55/TaskyApp.git
 cd TaskyApp
-Install dependencies:
+npm install   # or yarn install
+Start Metro bundler:
 
 bash
-npm install
-# or
-yarn install
-(For Android) Ensure an Android Virtual Device (AVD) is running via Android Studio.
-(For iOS) Ensure Xcode and the iOS simulator are installed and configured.
-
-Start the Metro bundler:
-
-bash
+Copy code
 npx react-native start
-Run the application on a platform:
-
-For Android:
+Run on Android:
 
 bash
+Copy code
 npx react-native run-android
-For iOS (macOS only):
+Run on iOS (macOS only):
 
 bash
+Copy code
 npx react-native run-ios
-Usage Guide
-Adding a Task: Tap the floating action button (usually a '+' sign) on the main screen. Fill in the task details, including title, description, due date, priority, and category.
+⚙️ Usage
+➕ Add Task: Tap the add button and fill in task details
 
-Viewing Tasks: Your tasks are displayed on the home screen. You can often view them in a list or grid format.
+👀 View Tasks: Tasks are listed on the home screen
 
-Editing a Task: Tap on an existing task to view its details and make changes.
+✏️ Edit Task: Tap on a task to modify details
 
-Completing/Deleting a Task: Mark a task as complete by tapping a checkbox or swipe on a task item to reveal options to delete or archive it.
+✅ Complete or Delete: Mark tasks as done or remove them
 
-Filtering and Sorting: Use the header or a menu to filter tasks by category, priority, or completion status.
-
-Project Structure
-A high-level overview of the project's source code structure:
-
-text
-src/
-|-- components/     # Reusable UI components (e.g., Button, TaskItem, Header)
-|-- screens/        # Main application screens (e.g., HomeScreen, AddTaskScreen, EditTaskScreen)
-|-- store/          # Redux store setup, slices (e.g., tasksSlice.js)
-|-- navigation/     # React Navigation configuration and stack navigators
-|-- utils/          # Helper functions and constants
-|-- assets/         # Images, fonts, and other static files
-Contributing
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make to TaskyApp are greatly appreciated.
-
-Fork the Project
-
-Create your Feature Branch (git checkout -b feature/AmazingFeature)
-
-Commit your Changes (git commit -m 'Add some AmazingFeature')
-
-Push to the Branch (git push origin feature/AmazingFeature)
-
-Open a Pull Request
-
-Please ensure your code follows the project's existing style and includes appropriate tests if applicable.
+📂 Project Structure
+bash
+Copy code
+TaskyApp/
+├── android/
+├── ios/
+├── assets/
+│   └── screenshots/   # App screenshots
+├── src/
+│   ├── components/    # Reusable components
+│   ├── screens/       # App screens
+│   ├── store/         # Redux slices & configuration
+│   ├── navigation/    # React Navigation setup
+│   └── utils/         # Helpers & constants
+├── package.json
+└── README.md
